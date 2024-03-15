@@ -543,18 +543,18 @@ ps()
   struct proc *p;
 
   acquire(&ptable.lock); //get lock for the process table
-  cprintf("PID    |     Parent ID     |     State\n");
+  cprintf("PID    |     Parent ID    |    Process     |     State\n");
   //itterate through entire table
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
   {
     if(p->state != UNUSED)
     {
       if(p->state == SLEEPING)
-        cprintf("%d    |    %d    |    SLEEPING\n", p->pid, (p->parent ? p->parent->pid : p->pid));
+        cprintf("%d    |    %d    |    %s    |    SLEEPING\n", p->pid, (p->parent ? p->parent->pid : p->pid), p->name);
       else if(p->state == RUNNING)
-        cprintf("%d    |    %d    |    SLEEPING\n", p->pid, (p->parent ? p->parent->pid : p->pid));
+        cprintf("%d    |    %d    |    %s    |    RUNNING\n", p->pid, (p->parent ? p->parent->pid : p->pid), p->name);
       else if(p->state == RUNNABLE)
-        cprintf("%d    |    %d    |    SLEEPING\n", p->pid, (p->parent ? p->parent->pid : p->pid));
+        cprintf("%d    |    %d    |    %s    |    RUNNABLE\n", p->pid, (p->parent ? p->parent->pid : p->pid), p->name);
     }
   }
   release(&ptable.lock);
