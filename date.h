@@ -6,3 +6,5 @@ struct rtcdate {
   uint month;
   uint year;
 };
+
+int date(struct rtcdate *d);
